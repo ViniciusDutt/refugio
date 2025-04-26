@@ -9,11 +9,13 @@ export const getAlbumPages = async () => {
   const { data: places, error: placeError } = await supabase
     .from("places")
     .select("*")
-    .eq("user_id", process.env.USER_ID);
+    .eq("user_id", process.env.USER_ID)
+    .order('id', { ascending: true })
 
   const { data: stickers, error: stickerError } = await supabase
     .from("stickers")
-    .select("*");
+    .select("*")
+    .order('id', { ascending: true })
 
   if (placeError || stickerError || !places || !stickers) {
     console.error(
